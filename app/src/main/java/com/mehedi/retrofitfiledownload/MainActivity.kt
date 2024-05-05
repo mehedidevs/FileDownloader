@@ -1,6 +1,7 @@
 package com.mehedi.retrofitfiledownload
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -30,17 +31,12 @@ import com.mehedi.retrofitfiledownload.filedownload.models.DownloadFile
 
 class MainActivity : AppCompatActivity() {
 
-
     companion object {
-        val MESSAGE_PROGRESS: String = "message_progress"
-        private val PERMISSION_REQUEST_CODE = 1
+        const val MESSAGE_PROGRESS: String = "message_progress"
     }
 
     private lateinit var binding: ActivityMainBinding
-
-
     private lateinit var mProgressBar: ProgressBar
-
     private lateinit var mProgressText: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -86,6 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val broadcastReceiver: BroadcastReceiver = object : BroadcastReceiver() {
+        @SuppressLint("DefaultLocale")
         @RequiresApi(Build.VERSION_CODES.TIRAMISU)
         override fun onReceive(context: Context, intent: Intent) {
             if (intent.action == MESSAGE_PROGRESS) {
@@ -93,7 +90,7 @@ class MainActivity : AppCompatActivity() {
                     intent.getParcelableExtra("download", DownloadFile::class.java)!!
                 mProgressBar.progress = download.progress
                 if (download.progress == 100) {
-                    mProgressText.text = "File Download Complete"
+                    mProgressText.text = getString(R.string.file_download_complete)
                 } else {
                     mProgressText.text = java.lang.String.format(
                         "Downloaded (%d/%d) MB",

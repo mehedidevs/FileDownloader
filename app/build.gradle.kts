@@ -59,4 +59,11 @@ dependencies {
     //coroutines
     implementation(libs.coroutines.core)
     implementation(libs.coroutines.android)
+
+    //work manager
+    implementation(libs.workmanager)
+
+    //livedata viewmodel
+    implementation(libs.android.livedata)
+    implementation(libs.android.viewmodel)
 }
